@@ -1,1 +1,7 @@
 .idea
+
+node.pid
+key.priv
+key.pub
+
+*.py[c|o]
