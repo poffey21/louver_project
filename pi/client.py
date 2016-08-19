@@ -5,7 +5,6 @@ crossbar server.
 When it is disconnected... we go ahead and startup
 the hotspot_server.
 """
-from autobahn.wamp import ApplicationError
 
 try:
     import asyncio
@@ -15,6 +14,8 @@ except ImportError:
 
 from os import environ
 from autobahn.asyncio.wamp import ApplicationSession, ApplicationRunner
+from autobahn.wamp import ApplicationError
+
 
 class Component(ApplicationSession):
     """
@@ -25,19 +26,27 @@ class Component(ApplicationSession):
     @asyncio.coroutine
     def onJoin(self, details):
 
+        def on_new_name(name):
+            """
+            Enable name changes
+            """
+            self.name = name
+            self.log.info("Changing name to {}".format(name))
+            self.publish('com.example.ongoodbye', [self.name])
+            self._unregister('com.ten08.louver.{}.new_name'.format(self.name))
+            self.register(on_new_name, 'com.ten08.louver.{}.new_name'.format(self.name))
+            self.publish('com.example.onhello', [name])
+
+        # Register function so we can change our name
+        self.register(on_new_name, 'com.ten08.louver.{}.new_name'.format(self.name))
+
+        # Publish name
         self.publish('com.example.onhello', [self.name])
 
-        def on_new_name(x):
-            self.publish('com.example.ongoodbye', [self.name])
-            self.name = x
-            self.log.info("Changing name to {}".format(x))
-            self.publish('com.example.onhello', [x])
-
-        self.register(on_new_name, 'com.ten08.louver.zero.new_name')
 
         try:
-            li = yield self.call("com.ten08.louver.iot_devices")
-            print(li)
+            # li = yield self.call("com.ten08.louver.iot_devices")
+            # print(li)
             li = yield self.call("wamp.session.list")
             print(li)
             # res = yield self.call('com.example.mul2', counter, 3)
@@ -51,6 +60,9 @@ class Component(ApplicationSession):
 
 
     def onLeave(self, details):
+        """
+        Remove your name from the list of devices
+        """
         self.publish('com.example.ongoodbye', [self.name]);
 
 
