@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>My App</title>
+    <title>Louvre</title>
     <!-- Path to Framework7 Library CSS-->
     <link rel="stylesheet" href="css/framework7.ios.min.css">
     <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
@@ -20,7 +20,56 @@
     <!-- Left panel with reveal effect-->
     <div class="panel panel-left panel-reveal">
       <div class="content-block">
-        <p>Left panel content goes here</p>
+		<div class="list-block theme-black">
+		<div class="content-block-title">Default Room Settings</div>
+        <ul>
+          <li>
+            <label class="label-checkbox item-content">
+              <input type="checkbox" name="ks-checkbox" value="Garage Door"/>
+              <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+              <div class="item-inner">
+                <div class="item-title">Garage Door</div>
+              </div>
+            </label>
+          </li>
+          <li>
+            <label class="label-checkbox item-content">
+              <input type="checkbox" name="ks-checkbox" value="Living Room" checked="checked"/>
+              <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+              <div class="item-inner">
+                <div class="item-title">Living Room</div>
+              </div>
+            </label>
+          </li>
+          <li>
+            <label class="label-checkbox item-content">
+              <input type="checkbox" name="ks-checkbox" value="Basement"/>
+              <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+              <div class="item-inner">
+                <div class="item-title">Basement</div>
+              </div>
+            </label>
+          </li>
+          <li>
+            <label class="label-checkbox item-content">
+              <input type="checkbox" name="ks-checkbox" value="Office"/>
+              <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+              <div class="item-inner">
+                <div class="item-title">Office</div>
+              </div>
+            </label>
+          </li>
+          <li>
+            <label class="label-checkbox item-content">
+              <input type="checkbox" name="ks-checkbox" value="Kitchen"/>
+              <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+              <div class="item-inner">
+                <div class="item-title">Kitchen</div>
+              </div>
+            </label>
+          </li>
+        </ul>
+      </div>
       </div>
     </div>
     <!-- Right panel with cover effect-->
@@ -37,7 +86,7 @@
         <div class="navbar">
           <div class="navbar-inner">
             <!-- We have home navbar without left link-->
-            <div class="center sliding">Awesome App</div>
+            <div class="center sliding">Louvre</div>
             <div class="right">
               <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
             </div>
@@ -49,11 +98,10 @@
           <div data-page="index" class="page">
             <!-- Scrollable page content-->
             <div class="page-content">
-              <div class="content-block-title">Welcome To My Awesome App</div>
+              <div class="content-block-title">Welcome To The Louvre</div>
               <div class="content-block">
                 <div class="content-block-inner">
                   <p>Couple of worlds here because my app is so awesome!</p>
-                  <p>Duis sed erat ac eros ultrices pharetra id ut tellus. Praesent rhoncus enim ornare ipsum aliquet ultricies. Pellentesque sodales erat quis elementum sagittis.</p>
                 </div>
               </div>
               <div class="content-block-title">What about simple navigation?</div>
@@ -71,10 +119,27 @@
                           <div class="item-title">Services</div>
                         </div>
                       </div></a></li>
-                  <li><a href="form.html" class="item-link">
+                  <li><a href="living_room.html" class="item-link">
                       <div class="item-content"> 
                         <div class="item-inner">
-                          <div class="item-title">Form</div>
+                          <div class="item-title">Living Room</div>
+						  <div class="item-after">
+							<span class="badge">74&deg;</span>
+						  </div>
+                        </div>
+                      </div></a>
+				  </li>
+                  <li><a href="kitchen.html" class="item-link">
+                      <div class="item-content"> 
+                        <div class="item-inner">
+                          <div class="item-title">Kitchen</div>
+                        </div>
+                      </div></a>
+				  </li>
+                  <li><a href="pantry.html" class="item-link">
+                      <div class="item-content"> 
+                        <div class="item-inner">
+                          <div class="item-title">Pantry</div>
                         </div>
                       </div></a></li>
                 </ul>
