@@ -30,15 +30,23 @@ class Component(ApplicationSession):
             """
             Enable name changes
             """
-            self.name = name
             self.log.info("Changing name to {}".format(name))
             self.publish('com.example.ongoodbye', [self.name])
             self._unregister('com.ten08.louver.{}.new_name'.format(self.name))
+            self.name = name
             self.register(on_new_name, 'com.ten08.louver.{}.new_name'.format(self.name))
-            self.publish('com.example.onhello', [name])
+            self.publish('com.example.onhello', [self.name])
 
         # Register function so we can change our name
-        self.register(on_new_name, 'com.ten08.louver.{}.new_name'.format(self.name))
+        yield from self.register(on_new_name, 'com.ten08.louver.{}.new_name'.format(self.name))
+        self.log.info("procedure on_new_name() registered")
+        
+        def add2(x, y):
+            self.log.info("add2() called with {x} and {y}", x=x, y=y)
+            return x + y
+            
+        yield from self.register(add2, u'com.example.add2')
+        self.log.info("procedure add2() registered")
 
         # Publish name
         self.publish('com.example.onhello', [self.name])
@@ -48,7 +56,6 @@ class Component(ApplicationSession):
             # li = yield self.call("com.ten08.louver.iot_devices")
             # print(li)
             li = yield self.call("wamp.session.list")
-            print(li)
             # res = yield self.call('com.example.mul2', counter, 3)
             # self.log.info("mul2() called with result: {result}",
             #               result=res)
@@ -57,6 +64,7 @@ class Component(ApplicationSession):
             # registered the procedure we would like to call
             if e.error != 'wamp.error.no_such_procedure':
                 raise e
+        print(li)
 
 
     def onLeave(self, details):
@@ -65,7 +73,8 @@ class Component(ApplicationSession):
         """
         self.publish('com.example.ongoodbye', [self.name]);
 
-
+    def onDisconnect(self):
+        asyncio.get_event_loop().stop()
 
 
 
