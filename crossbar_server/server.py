@@ -68,26 +68,25 @@ class AppSession(ApplicationSession):
 
         # PUBLISH and CALL every second .. forever
         #
-        # counter = 0
-        # while True:
-        #
-        #     # PUBLISH an event
-        #     #
-        #     yield self.publish('com.example.oncounter', counter)
-        #     self.log.info("published to 'oncounter' with counter {counter}",
-        #                   counter=counter)
-        #     counter += 1
-        #
-        #     # CALL a remote procedure
-        #     #
-        #     try:
-        #         res = yield self.call('com.example.mul2', counter, 3)
-        #         self.log.info("mul2() called with result: {result}",
-        #                       result=res)
-        #     except ApplicationError as e:
-        #         # ignore errors due to the frontend not yet having
-        #         # registered the procedure we would like to call
-        #         if e.error != 'wamp.error.no_such_procedure':
-        #             raise e
-        #
-        #     yield sleep(15)
+        counter = 0
+        while True:
+        
+            # PUBLISH an event
+            #
+            yield self.publish('com.example.oncounter', counter)
+            self.log.info("published to 'oncounter' with counter {counter}",
+                          counter=counter)
+            counter += 1
+            # CALL a remote procedure
+            #
+            try:
+                res = yield self.call('com.ten08.louvre.toggle', counter, 3)
+                self.log.info("toggle() called with result: {result}",
+                              result=res)
+            except ApplicationError as e:
+                # ignore errors due to the frontend not yet having
+                # registered the procedure we would like to call
+                if e.error != 'wamp.error.no_such_procedure':
+                    raise e
+        
+            yield sleep(15)
