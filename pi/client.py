@@ -35,7 +35,7 @@ class Component(ApplicationSession):
             self._unregister('com.ten08.louver.{}.new_name'.format(self.name))
             self.name = name
             self.register(on_new_name, 'com.ten08.louver.{}.new_name'.format(self.name))
-            self.publish('com.example.onhello', [self.name])
+            self.publish('com.ten08.louver.register_device', [self.name])
 
         # Register function so we can change our name
         yield from self.register(on_new_name, 'com.ten08.louver.{}.new_name'.format(self.name))
@@ -55,7 +55,10 @@ class Component(ApplicationSession):
         try:
             # li = yield self.call("com.ten08.louver.iot_devices")
             # print(li)
-            li = yield self.call("wamp.session.list")
+            li = yield from self.call("wamp.registration.list")
+            for session in li['exact']:
+                res = yield from self.call("wamp.registration.list_callees", session)
+                print(res)
             # res = yield self.call('com.example.mul2', counter, 3)
             # self.log.info("mul2() called with result: {result}",
             #               result=res)

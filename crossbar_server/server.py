@@ -44,12 +44,13 @@ class AppSession(ApplicationSession):
 
         # SUBSCRIBE to a topic and receive events
         #
-        def onhello(msg):
-            self.devices.append(msg)
-            self.log.info("event for 'onhello' received: {msg}", msg=msg)
+        def register_device(msg):
+            if msg not in self.devices:
+                self.devices.append(msg)
+            self.log.info("event for 'register_device' received: {msg}", msg=msg)
 
-        yield self.subscribe(onhello, 'com.example.onhello')
-        self.log.info("subscribed to topic 'onhello'")
+        yield self.subscribe(register_device, 'com.ten08.louver.register_device')
+        self.log.info("subscribed to topic 'register_device'")
 
         # REGISTER a procedure for remote calling
         #

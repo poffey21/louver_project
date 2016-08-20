@@ -46,11 +46,10 @@
 
 	// PUBLISH an event every second
 	//
-	t1 = setInterval(function () {
-
-	   session.publish('com.example.onhello', ['Hello from JavaScript (browser)']);
-	   console.log("published to topic 'com.example.onhello'");
-	}, 8000);
+	//t1 = setInterval(function () {
+	//   session.publish('com.example.onhello', ['Hello from JavaScript (browser)']);
+	//   console.log("published to topic 'com.example.onhello'");
+	//}, 8000);
 
 
 	// REGISTER a procedure for remote calling
@@ -73,6 +72,7 @@
 	session.call('com.ten08.louver.iot_devices').then(
 		  function (res) {
 			 console.log("iot_devices() result:", res);
+			 createContentPage()
 		  },
 		  function (err) {
 			 console.log("iot_devices() error:", err);
