@@ -48,11 +48,15 @@ class Device(ApplicationSession):
         asyncio.get_event_loop().stop()
 
         
-class PiZero(SainsmartTwoChannelUSBRelay, TemperatureSensor, Device):
+class PiZero(Device):
     """
     This is the device that we'll eventually setup.  
     """
     name = "ffw09D32eqoa"
+    devices = []
+
+    def __init__(self):
+        light_switch = SainsmartTwoChannelUSBRelay()
 
 if __name__ == '__main__':
     runner = ApplicationRunner(
